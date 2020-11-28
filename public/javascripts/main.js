@@ -151,6 +151,10 @@ function getValPlayer(cardval){
 }
 
 function playerGamePlay(){
+    if (playerscore == 21)
+    {
+        displayend("player");
+    }
     document.getElementById("stay")
     .addEventListener("click",function(e){
         stay = true; 
@@ -188,14 +192,20 @@ function dealCard(){
                 document.getElementById("deck15").style.visibility = "hidden";
                 document.getElementById("dcard2").style.visibility = "visible";
                 document.getElementById("dnum").innerHTML = dealerscore;
-                displayend("dealer");
+                document.getElementById("hit").disabled = true; 
+                document.getElementById("stay").disabled = true;
+                setTimeout(function(){  
+                    displayend("dealer");}, 2000);
             }
             else if (playerscore == 21) {
                 dealerscore += deal2card;
                 document.getElementById("deck15").style.visibility = "hidden";
                 document.getElementById("dcard2").style.visibility = "visible";
                 document.getElementById("dnum").innerHTML = dealerscore;
-                displayend("player");
+                document.getElementById("hit").disabled = true; 
+                document.getElementById("stay").disabled = true;
+                setTimeout(function(){  
+                    displayend("player");}, 2000);
             }             
         });
     }, false)
@@ -203,6 +213,15 @@ function dealCard(){
 
 function dealerGamePlay(){
     dealerscore += deal2card;
+    if (dealerscore >= 17){
+        determineWinner();
+    }
+    if (dealerscore == 21){
+        document.getElementById("hit").disabled = true; 
+        document.getElementById("stay").disabled = true;
+        setTimeout(function(){  
+            displayend("dealer");}, 2000);
+    }
     document.getElementById("deck15").style.visibility = "hidden";
     document.getElementById("dcard2").style.visibility = "visible";
     document.getElementById("dnum").innerHTML = dealerscore;
@@ -233,10 +252,16 @@ function dealCardDealer(){
                 dealCardDealer();
             }
             else if (dealerscore > 21) {
-                displayend("player");
+                document.getElementById("hit").disabled = true; 
+                document.getElementById("stay").disabled = true;
+                setTimeout(function(){  
+                    displayend("player");}, 2000);
             } 
             else if (dealerscore == 21) {
-                displayend("dealer");
+                document.getElementById("hit").disabled = true; 
+                document.getElementById("stay").disabled = true;
+                setTimeout(function(){  
+                    displayend("dealer");}, 2000);
             }
             else {
                 determineWinner();
@@ -248,14 +273,23 @@ function dealCardDealer(){
 function determineWinner() {
     if (playerscore == dealerscore)
     {
-        displayend("tie");
+        document.getElementById("hit").disabled = true; 
+        document.getElementById("stay").disabled = true;
+        setTimeout(function(){  
+            displayend("tie");}, 2000);
     }
     else if (playerscore > dealerscore)
     {
-        displayend("player");
+        document.getElementById("hit").disabled = true; 
+        document.getElementById("stay").disabled = true;
+        setTimeout(function(){  
+            displayend("player");}, 2000);
     }
     else{
-        displayend("dealer");
+        document.getElementById("hit").disabled = true; 
+        document.getElementById("stay").disabled = true;
+        setTimeout(function(){  
+            displayend("dealer");}, 2000);
     }
 }
 
@@ -288,3 +322,4 @@ else{
 }
 
 };
+
