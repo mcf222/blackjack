@@ -1,0 +1,236 @@
+@keyframes slide {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:30%;
+    top:5%;
+  }
+}
+@keyframes slide2 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:35%;
+    top:5%;
+  }
+}
+@keyframes slide3 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:30%;
+    top:70%;
+  }
+}
+@keyframes slide4 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:35%;
+    top:70%;
+  }
+}
+@keyframes slide5 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:40%;
+    top:70%;
+  }
+}
+@keyframes slide6 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:45%;
+    top:70%;
+  }
+}
+@keyframes slide7 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:50%;
+    top:70%;
+  }
+}
+@keyframes slide8 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:55%;
+    top:70%;
+  }
+}
+@keyframes slide9 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:60%;
+    top:70%;
+  }
+}
+@keyframes slide10 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:65%;
+    top:70%;
+  }
+}
+@keyframes slide11 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:40%;
+    top:5%;
+  }
+}
+@keyframes slide12 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:45%;
+    top:5%;
+  }
+}
+@keyframes slide13 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:50%;
+    top:5%;
+  }
+}
+@keyframes slide14 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:55%;
+    top:5%;
+  }
+}
+@keyframes slide15 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:60%;
+    top:5%;
+  }
+}
+@keyframes slide16 {
+  0% {
+    left:5%;
+    top:40%;
+  } 
+  100% {
+    left:65%;
+    top:5%;
+  }
+}
+
+@keyframes flip {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(180deg); }
+}
+
+.card {
+  position: absolute; 
+  width:140px;
+  height:195px;
+  background-size: 135px 195px;
+  perspective: 100;
+  visibility: hidden;
+}
+.card, .front, .back {
+  width: 140px;
+  height: 195px;
+}
+
+.flipper {
+  transition: 3s;
+  transform-style: preserve-3d;
+  position: relative;
+  animation-name: flip;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-delay: 1s;
+}
+
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+}
+
+.front {
+  background-image:url("http://commondatastorage.googleapis.com/codeskulptor-assets/card_back.png");
+  background-size:cover; 
+  transform: rotateY(0deg); 
+}
+
+.back {
+  transform: rotateY(180deg); 
+  background-size: 145px 195px;
+}
+
+.deck {
+  position: absolute;
+  width:140px;
+  height:195px;
+  background-image:url("http://commondatastorage.googleapis.com/codeskulptor-assets/card_back.png");
+  background-size:cover; 
+}
+.score{
+  position: absolute;
+  background-color:white;
+  border-style:solid;
+  border-color:black;
+  width:90px;
+  height:90px;
+}
+p.num{
+  line-height:90px;
+  text-align:center;
+  font-family:courier;
+  font-size:300%
+}
+.stext{
+  position: absolute;
+  width:90px;
+  height:60px;
+}
+p.txt{
+  text-align:center;
+  font-family:courier;
+  font-size:125%
+}
