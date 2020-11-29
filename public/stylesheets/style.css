@@ -178,13 +178,13 @@
 }
 
 .flipper {
-  transition: 3s;
+  transition: 1s;
   transform-style: preserve-3d;
   position: relative;
   animation-name: flip;
-  animation-duration: 3s;
+  animation-duration: 1s;
   animation-fill-mode: forwards;
-  animation-delay: 1s;
+  animation-delay: 0s;
 }
 
 .front, .back {
