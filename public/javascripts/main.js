@@ -14,6 +14,10 @@ var dealercard = 3;
 var stay = false;
 var slide = 5; 
 var deal = false; 
+var dealeraces = 0; 
+var playeraces = 0; 
+var def = true; 
+
 if (sessionStorage.getItem("startup") === null){
     $('.ui.basic.modal.startup')
     .modal("show");
@@ -24,7 +28,7 @@ if (sessionStorage.getItem("startup") === null){
 startup();
 
 function startup() {
-    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2")
+    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     .then(response => response.json())
     .then(data => {
         deckid = data.deck_id;
@@ -121,11 +125,23 @@ function getValDealer(cardval){
         return 10; 
     }
     else if (cardval == "ACE"){
-        if ((dealerscore + 11) > 17){
-            return 1; 
+        if (def){
+        ++dealeraces;
+            if ((dealerscore + 11) >= 17){
+                return 11; 
+            }
+            else {
+                return 1; 
+            }
         }
-        else{
-            return 11; 
+        else {
+            if ((dealerscore + 11) > 21){
+                return 1; 
+            }
+            else{
+                ++dealeraces;
+                return 11; 
+            }   
         }
     }
     else {
@@ -137,11 +153,12 @@ function getValPlayer(cardval){
     if (cardval == "KING" || cardval == "QUEEN" || cardval == "JACK"){
         return 10; 
     }
-    else if (cardval == "ACE"){
+    else if (cardval == "ACE"){   
         if ((playerscore + 11) > 21){
             return 1; 
         }
         else{
+            ++playeraces;
             return 11; 
         }
     }
@@ -153,7 +170,11 @@ function getValPlayer(cardval){
 function playerGamePlay(){
     if (playerscore == 21)
     {
-        displayend("player");
+        document.getElementById("dnum").innerHTML = dealerscore;
+        document.getElementById("hit").disabled = true; 
+        document.getElementById("stay").disabled = true;
+        setTimeout(function(){  
+            displayend("player");}, 2000);
     }
     document.getElementById("stay")
     .addEventListener("click",function(e){
@@ -186,6 +207,7 @@ function dealCard(){
             document.getElementById(pcb).style.backgroundImage = ("url("+ url +")");
             document.getElementById(pc).style.visibility = "visible";
             playerscore += getValPlayer(data.cards[0].value);
+            checkAcesPlayer(); 
             document.getElementById("pnum").innerHTML = playerscore;
             if (playerscore > 21) {
                 dealerscore += deal2card;
@@ -211,22 +233,55 @@ function dealCard(){
     }, false)
 }
 
-function dealerGamePlay(){
-    dealerscore += deal2card;
-    if (dealerscore >= 17){
-        determineWinner();
+function checkAcesPlayer() {
+    if (playerscore > 21){
+        if (playeraces == 1){
+            playerscore = playerscore - 11; 
+            playerscore += 1; 
+            playeraces = 0; 
+        }
     }
+}
+
+function checkAcesDealer(){
+    if (dealeraces && ((deal2card + 11) == 21)){
+        dealerscore = 21; 
+    }
+    else if (dealerscore > 16 && dealerscore != 21){
+        if (dealeraces){
+            dealerscore = dealerscore - 11; 
+            dealerscore += 1; 
+            dealeraces = 0; 
+        }
+    }
+}
+
+function dealerGamePlay(){
+    def = false;
+    dealerscore += deal2card;
+    checkAcesDealer(); 
     if (dealerscore == 21){
+        document.getElementById("deck15").style.visibility = "hidden";
+        document.getElementById("dcard2").style.visibility = "visible";
+        document.getElementById("dnum").innerHTML = dealerscore;
         document.getElementById("hit").disabled = true; 
         document.getElementById("stay").disabled = true;
         setTimeout(function(){  
             displayend("dealer");}, 2000);
     }
-    document.getElementById("deck15").style.visibility = "hidden";
-    document.getElementById("dcard2").style.visibility = "visible";
-    document.getElementById("dnum").innerHTML = dealerscore;
-    slide = 11; 
-    dealCardDealer();
+    else if (dealerscore >= 17){
+        document.getElementById("deck15").style.visibility = "hidden";
+        document.getElementById("dcard2").style.visibility = "visible";
+        document.getElementById("dnum").innerHTML = dealerscore;
+        determineWinner();
+    }
+    else {
+        document.getElementById("deck15").style.visibility = "hidden";
+        document.getElementById("dcard2").style.visibility = "visible";
+        document.getElementById("dnum").innerHTML = dealerscore;
+        slide = 11; 
+        dealCardDealer();
+    }
 }
 
 function dealCardDealer(){
@@ -247,8 +302,9 @@ function dealCardDealer(){
             document.getElementById(dcb).style.backgroundImage = ("url("+ url +")");
             document.getElementById(dc).style.visibility = "visible";
             dealerscore += getValDealer(data.cards[0].value);
+            checkAcesDealer();
             document.getElementById("dnum").innerHTML = dealerscore;
-            if (dealerscore <= 17){
+            if (dealerscore < 17){
                 dealCardDealer();
             }
             else if (dealerscore > 21) {
@@ -322,4 +378,5 @@ else{
 }
 
 };
+
 
