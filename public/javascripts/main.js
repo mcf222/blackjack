@@ -28,7 +28,7 @@ if (sessionStorage.getItem("startup") === null){
 startup();
 
 function startup() {
-    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2")
     .then(response => response.json())
     .then(data => {
         deckid = data.deck_id;
@@ -43,6 +43,9 @@ function startup() {
             .then(response => response.json())
             .then(data => { 
                 var url = data.cards[0].image;
+                document.getElementById("dcardb1").classList.remove("flipper");
+                void document.getElementById("dcardb1").offsetWidth;
+                document.getElementById("dcardb1").classList.add("flipper");
                 document.getElementById("dcardb1").style.backgroundImage = ("url("+ url +")");
                 document.getElementById("dcardb1").style.visibility = "visible";
                 dealerscore += getValDealer(data.cards[0].value);
@@ -70,6 +73,9 @@ function startup() {
             .then(response => response.json())
             .then(data => { 
                 var url = data.cards[0].image;
+                document.getElementById("dcardb1").classList.remove("flipper");
+                void document.getElementById("dcardb1").offsetWidth;
+                document.getElementById("dcardb1").classList.add("flipper");
                 document.getElementById("dcardb1").style.backgroundImage = ("url("+ url +")");
                 document.getElementById("dcardb1").style.visibility = "visible";
                 dealerscore += getValDealer(data.cards[0].value);
@@ -98,6 +104,9 @@ function playerStart(){
         .then(response => response.json())
         .then(data => { 
             var url = data.cards[0].image;
+            document.getElementById("pcardb1").classList.remove("flipper");
+            void document.getElementById("pcardb1").offsetWidth;
+            document.getElementById("pcardb1").classList.add("flipper");
             document.getElementById("pcardb1").style.backgroundImage = ("url("+ url +")");
             document.getElementById("pcard1").style.visibility = "visible";
             playerscore += getValPlayer(data.cards[0].value);
@@ -108,6 +117,9 @@ function playerStart(){
                 .then(response => response.json())
                 .then(data => { 
                     var url = data.cards[0].image;
+                    document.getElementById("pcardb2").classList.remove("flipper");
+                    void document.getElementById("pcardb2").offsetWidth;
+                    document.getElementById("pcardb2").classList.add("flipper");
                     document.getElementById("pcardb2").style.backgroundImage = ("url("+ url +")");
                     document.getElementById("pcard2").style.visibility = "visible";
                     playerscore += getValPlayer(data.cards[0].value);
@@ -204,6 +216,9 @@ function dealCard(){
             var pcb = "pcardb" + playercard;
             var pc = "pcard" + playercard;
             playercard++;
+            document.getElementById(pcb).classList.remove("flipper");
+            void document.getElementById(pcb).offsetWidth;
+            document.getElementById(pcb).classList.add("flipper");
             document.getElementById(pcb).style.backgroundImage = ("url("+ url +")");
             document.getElementById(pc).style.visibility = "visible";
             playerscore += getValPlayer(data.cards[0].value);
@@ -262,6 +277,9 @@ function dealerGamePlay(){
     checkAcesDealer(); 
     if (dealerscore == 21){
         document.getElementById("deck15").style.visibility = "hidden";
+        document.getElementById("dcardb2").classList.remove("flipper");
+        void document.getElementById("dcardb2").offsetWidth;
+        document.getElementById("dcardb2").classList.add("flipper");
         document.getElementById("dcard2").style.visibility = "visible";
         document.getElementById("dnum").innerHTML = dealerscore;
         document.getElementById("hit").disabled = true; 
@@ -271,12 +289,18 @@ function dealerGamePlay(){
     }
     else if (dealerscore >= 17){
         document.getElementById("deck15").style.visibility = "hidden";
+        document.getElementById("dcardb2").classList.remove("flipper");
+        void document.getElementById("dcardb2").offsetWidth;
+        document.getElementById("dcardb2").classList.add("flipper");
         document.getElementById("dcard2").style.visibility = "visible";
         document.getElementById("dnum").innerHTML = dealerscore;
         determineWinner();
     }
     else {
         document.getElementById("deck15").style.visibility = "hidden";
+        document.getElementById("dcardb2").classList.remove("flipper");
+        void document.getElementById("dcardb2").offsetWidth;
+        document.getElementById("dcardb2").classList.add("flipper");
         document.getElementById("dcard2").style.visibility = "visible";
         document.getElementById("dnum").innerHTML = dealerscore;
         slide = 11; 
@@ -299,6 +323,9 @@ function dealCardDealer(){
             var dcb = "dcardb" + dealercard;
             var dc = "dcard" + dealercard;
             dealercard++;
+            document.getElementById(dcb).classList.remove("flipper");
+            void document.getElementById(dcb).offsetWidth;
+            document.getElementById(dcb).classList.add("flipper");
             document.getElementById(dcb).style.backgroundImage = ("url("+ url +")");
             document.getElementById(dc).style.visibility = "visible";
             dealerscore += getValDealer(data.cards[0].value);
@@ -378,5 +405,4 @@ else{
 }
 
 };
-
 
